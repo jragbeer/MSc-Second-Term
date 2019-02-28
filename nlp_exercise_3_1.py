@@ -24,12 +24,11 @@ While initially primarily a hockey company, with ownership stakes in a number of
 The present ownership structure emerged in 2012, after the Ontario Teachers' Pension Plan (the company's former principal owner) announced the sale of its 75 percent stake in MLSE to a consortium made up of Bell Canada and Rogers Communications, in a deal valued at $1.32 billion. As part of the sale, two numbered companies were created to jointly hold stock. This ownership structure ensures that, at the shareholder level, Rogers and Bell vote their overall 75 percent interest in the company together and thus decisions on the management of the company must be made by consensus between the two. A portion of Bell's share in MLSE is owned by its pension fund, in order to make Bell's share in MLSE under 30 percent. This was done so that Bell could retain its existing 18 percent interest in the Montreal Canadiens; as NHL rules prevent any shareholder that owns more than 30 percent of a team from holding an ownership position in another. The remaining 25 percent is owned by Larry Tanenbaum, who is also the chairman of MLSE.
 """
 
-text1 = nltk.word_tokenize(wiki)
-tagSent = nltk.pos_tag(text1)
-print("Tagged sent: ", tagSent)
+text1 = nltk.word_tokenize(wiki) #tokenize the input
+tagSent = nltk.pos_tag(text1) # assign POS tags to each token
+print("Tagged sent: ", tagSent) #print the list of (token, tag) items
 
-# Get chunks with repetitive occurrences of
-# singular noun <NN> or Proper Noun Singular <NNP>+
+# Get chunks with all nouns
 chunkGram = "NP-CHUNK: {<NN>+|<NNP>+|<NNS>+|<NP>+|<NPS>+|}"
 find = nltk.RegexpParser(chunkGram)
 chunkTree = find.parse(tagSent)
@@ -42,6 +41,7 @@ for subtree in chunkTree.subtrees():
             finalChunk = finalChunk + " " + w
         print(finalChunk)
 
+# Get chunks with all verbs
 chunkGram = "NP-CHUNK: {<VB>+|<VBG>+|<VBD>+|<VBZ>+|<VBN>+|<VH>+|<VBP>+|<VHD>+|<VHG>+|<VHN>+|<VHP>+|<VHZ>+|<VV>+|<VVD>+|<VVP>+|<VVN>+|<VVG>+}"
 find = nltk.RegexpParser(chunkGram)
 chunkTree = find.parse(tagSent)
@@ -54,10 +54,11 @@ for subtree in chunkTree.subtrees():
             finalChunk = finalChunk + " " + w
         print(finalChunk)
 
+
+# Get chunks with structure ** determiner/superlative adjective / plural noun **
 chunkGram = "NP-CHUNK: {<DT>+|<JJS>+|<NNS>+}"
 find = nltk.RegexpParser(chunkGram)
 chunkTree = find.parse(tagSent)
-
 print("\n:******* All the chunked Det/Superlative/Noun (plural) phrases *******")
 for subtree in chunkTree.subtrees():
     if subtree.label() == 'NP-CHUNK':
