@@ -65,5 +65,20 @@ def main():
         if nltk_output[x] == test_data[x]:
             nltk_good +=1
     print('The accuracy of the NLTK Model versus the original tags is {:.1f}%.'.format(100 * nltk_good /len(nltk_output)))
-
 main()
+
+# answer to 3.4
+# MaxEnt classifier is based off of Logistic Regression according to
+# https://stackoverflow.com/questions/12389093/nltk-maximum-entropy-classifier-raw-score (The answer from the SKLearn contributer)
+#
+# The native POS_TAG function in NLTK is based off of a perceptron according to this
+# https://stackoverflow.com/questions/32016545/how-does-nltk-pos-tag-work (accepted answer)
+#
+# According to https://stats.stackexchange.com/questions/162257/whats-the-difference-between-logistic-regression-and-perceptron
+# "
+# In some cases, the term perceptron is also used to refer to neural networks which use a logistic function as a transfer function (however, this is not in accordance with the original terminology). In that case, a logistic regression and a "perceptron" are exactly the same. Of course, with a perceptron it is possible to use multiple neurons all using a logistic transfer function, which becomes somewhat relatable to stacking of logistic regression (not the same, but similar)."
+#
+# A perceptron and logistic regression are extremely similar (if not the same) depending on the definition for what you mean by perceptron.
+#
+# This would explain the nearly identical results when comparing the POS_TAG function and the MaxEnt classifier
+#
