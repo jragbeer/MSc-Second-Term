@@ -1,0 +1,50 @@
+<html>
+<head>
+<script type="text/javascript">
+  var canvas;
+  var ctx;
+
+  window.onload = function() {
+    canvas = document.getElementById("canvasArea");
+    ctx = canvas.getContext("2d");
+  }
+
+  function drawCircle() { 
+      var xPos = 250;
+      var yPos = 250;
+      var size = document.getElementById("result").value;
+	  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.arc(xPos, yPos, size, 0, 2 * Math.PI);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+  }
+  
+    function drawSquare() { 
+      var xPos = 250;
+      var yPos = 250;
+      var size = document.getElementById("result").value;
+	  ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.rect(xPos-(size/2), yPos-(size/2), size, size, 2 * Math.PI);
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+  }
+      function clearButton() { 
+
+	  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  }
+</script>
+</head>
+<body>
+<input type="text" id="result"/>
+<button onclick="drawCircle()">Draw Circle</button>
+<button onclick="drawSquare()">Draw Sqaure</button>
+<button onclick="clearButton()">Clear</button>
+<br><br>
+<div>
+    <canvas id="canvasArea" width="500" height="500" style="border:2px solid black"></canvas>
+</div>
+</body>
+</html>
