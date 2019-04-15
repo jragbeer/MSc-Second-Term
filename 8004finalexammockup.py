@@ -140,4 +140,23 @@ def q4():
 
     # print(i)
 
-q4()
+def q3():
+    train_set_input = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
+    train_set_label = np.array([0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361])
+
+    # your code here to calculate w_ML
+    try:
+        wML = np.linalg.inv(np.dot(np.transpose(train_set_input), train_set_input))*np.dot(train_set_input.T, train_set_label)
+    except:
+        wML = np.dot(np.transpose(train_set_input), train_set_input) * np.dot(train_set_input.T, train_set_label)
+    test_set_inpute = [20, 21, 22, 23, 24]
+    test_set_label = [400, 441, 484, 529, 576]
+
+    # your code here to calcluate test set error
+
+    new = np.dot(wML.T, test_set_inpute)
+    for i in range(len(new)):
+        print(new[i], test_set_label[i])
+
+    from sklearn.metrics import mean_squared_error
+    print(mean_squared_error(test_set_label, new))
