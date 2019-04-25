@@ -4,7 +4,7 @@ import datetime
 import pandas as pd
 
 rouge = Rouge()
-path = "C:/Users/Julien/PycharmProjects/webscraping/tensorflow-rnn-shakespeare-master/"
+path = "xxx"
 # load in EU and CAN regulations
 pickle_in1 = open(path + "Canada_Regulations2.pickle", 'rb')
 can_regs = pickle.load(pickle_in1)
@@ -66,16 +66,13 @@ pickle.dump(eu_can, pickle_out)
 pickle_out.close()
 print('done', datetime.datetime.now()-timee)
 
-pickle_out = open("can_eu_rouge.pickle","rb")
-eu = pickle.load(pickle_out)
-new = []
-new2 = []
-for x in list(eu.keys()):
-    new.append(eu[x][0]['rouge-1']['p'])
-    new2.append(eu[x][0]['rouge-2']['p'])
-print(pd.Series(new).describe())
-print(pd.Series(new2).describe())
-
-# ROUGE-n recall=40% means that 40% of the n-grams in the reference summary are also present in the generated summary.
-# ROUGE-n precision=40% means that 40% of the n-grams in the generated summary are also present in the reference summary.
-# ROUGE-n F1-score=40% is more difficult to interpret, like any F1-score.
+# for each dictionary of rouge scores
+for z in [eu, can, eu_can]:
+    #create a Series to run analytics on the ROUGE scores
+    rouge1scores = []
+    rouge2scores = []
+    for x in list(z.keys()):
+        rouge1scores.append(z[x][0]['rouge-1']['p'])
+        rouge2scores.append(z[x][0]['rouge-2']['p'])
+    print(pd.Series(rouge1scores).describe())
+    print(pd.Series(rouge2scores).describe())
